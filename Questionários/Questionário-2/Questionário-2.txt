@@ -1,0 +1,55 @@
+1 -  O Linux recebeu esse nome pois ele é uma variante free software do Unix.
+2 -  Programa que roda em background e não é controlado por usuários comuns.
+3 -  É um interpretador de comandos.
+4 -  Porque o super-usuário tem privilégios e pode fazer qualquer coisa com o sistema operacional.
+5 -  A tecla Tab.
+6 -  Pressionando o cursor para cima é possível saber quais instruções que foram executadas anteriormente.
+
+7 - 
+a) man                             
+b) ls
+c) pwd
+d) cd
+e) mkdir
+f)  rm 
+g) rm -r
+h) cp
+i) cp -r
+j) mv
+k) mv
+l) mv
+m) cat
+n)
+o) clear
+p) grep -ri palavra* arquivo-texto
+q)
+r)
+s) diff
+t)
+
+Prático
+
+1 - cat Ola_mundo.txt
+2 – ls -al
+3 -
+4 -
+5 - date -s 08/01/2007
+6 - 
+     cd Área\ de\ Trabalho/
+     cd Arqs_aula_02/
+     ls -l *.txt
+
+7 - 
+     cd Área\ de\ Trabalho/
+     cd Arqs_aula_02/
+     ls -l *.png
+
+8 - 
+     cd Área\ de\ Trabalho/
+     cd Arqs_aula_02/
+     ls -l *.jpg
+
+9 - 
+     cd Área\ de\ Trabalho/
+     cd Arqs_aula_02/
+     ls -l *.gif
