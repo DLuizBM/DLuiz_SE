@@ -1,0 +1,235 @@
+Q1 - 
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+	printf("Ola mundo \n");
+}
+
+Q2 -
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+
+	char nome[100];
+	
+	printf("Digite o seu nome: ");
+ 	scanf("%s", nome);
+	printf("Ola %s \n", nome);
+}
+
+Q3 -
+
+a)
+Digite o seu nome: Eu
+Ola Eu 
+
+b)
+Digite o seu nome: Eu
+Ola Eu 
+
+c)
+Digite o seu nome: Ola Eu 
+
+d)
+Digite o seu nome: Ola Eu 
+
+e)
+Digite o seu nome: Ola Eu 
+
+f)
+Digite o seu nome: Ola ola 
+
+Q4 -
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char **argv) {
+
+	printf("Ola %s \n", argv[1]);
+}
+
+Q5 - 
+a)
+Ola Eu 
+
+b)
+Ola Eu mesmo 
+
+c)
+Ola (null) 
+
+d)
+Ola (null) 
+
+e)
+Ola (null) 
+
+f)
+Ola (null) 
+
+Q6 -
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv) {
+	
+	printf("Ola %s \n", argv[1]);
+	printf("Número de argumentos é %d. \n", argc);
+}
+
+Q7 - 
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv) {
+	
+	int i;
+	printf("Argumentos: ");
+	for(i=1; i<argc; i++){
+	printf(" %s ", argv[i]);
+	}
+	printf("\n");
+}
+
+
+Q8 -
+
+Função main.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "calculaCaracteres.hpp"
+
+int main(){
+	char string[100];
+	int a = 0;
+	
+	printf("Digite um nome: ");
+	scanf("%[^\n]s", string);
+	a = Num_Caracs(string);
+	printf("O número de caracteres é: %d \n", a);
+	
+}
+
+calculaCaracteres.cpp
+#include <cassert>
+#include <stdio.h>
+#include "calculaCaracteres.hpp"
+
+int Num_Caracs(char *string){
+	int i=0;
+	while(string[i] != '\0'){
+	i++;
+	}
+	return i;	
+}
+
+calculaCaracteres.hpp
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+extern int Num_Caracs(char *string);
+#ifdef __cplusplus
+}
+#endif
+
+Q9-
+Função main.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "calculaCaracteres.hpp"
+
+int main(int argc, char **argv){
+	int a = 0;
+	
+	for(int i=0; i<argc;i++){
+	a = Num_Caracs(argv[i]);
+	printf("Argumento: %s ", argv[i]);
+	printf("/Número de caracteres é: %d \n", a);
+	}
+}
+
+CalculaCaracteres.cpp
+
+#include <cassert>
+#include <stdio.h>
+#include "calculaCaracteres.hpp"
+
+int Num_Caracs(char *argv){
+	int i=0;
+	while(argv[i] != '\0'){
+	i++;
+	}
+	return i;	
+}
+
+CalculaCaracteres.hpp
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+extern int Num_Caracs(char *argv);
+#ifdef __cplusplus
+}
+#endif
+
+
+Q10 - 
+calculaCaracteres: main.o calculaCaracteres.o
+	g++ $(CFLAGS) -o calculaCaracteres main.o calculaCaracteres.o
+main.o: main.c calculaCaracteres.hpp
+	gcc $(CFLAGS) -c main.c
+calculaCaracteres.o: calculaCaracteres.cpp calculaCaracteres.hpp
+	g++ $(CFLAGS) -c calculaCaracteres.cpp
+clean:
+	rm -f *.o calculaCaracteres
+
+
+Q11 - 
+Função main.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "calculaCaracteres.hpp"
+
+int main(int argc, char **argv){
+	int a = 0;
+	int cont = 0;
+	
+	for(int i=0; i<argc;i++){
+	a = Num_Caracs(argv[i]);
+	cont += a;
+	}
+	printf("O total de caracteres é: %d \n", cont);
+}
+
+CalculaCaracteres.cpp
+
+#include <cassert>
+#include <stdio.h>
+#include "calculaCaracteres.hpp"
+
+int Num_Caracs(char *argv){
+	int i=0;
+	while(argv[i] != '\0'){
+	i++;
+	}
+	return i;	
+}
+
+CalculaCaracteres.hpp
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+extern int Num_Caracs(char *argv);
+#ifdef __cplusplus
+}
+#endif
+
+Q12 = Q10.
