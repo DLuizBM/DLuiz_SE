@@ -1,0 +1,210 @@
+Questionário 4
+
+1 - 
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+	char string[] = "Ola Mundo";
+	FILE *ponteiroArquivo;
+	int i;
+	ponteiroArquivo = fopen("ola_mundo.txt", "w");
+	for(i = 0; string[i]; i++){
+		putc(string[i], ponteiroArquivo);
+	} 
+	fclose(ponteiroArquivo);
+}
+
+2 -
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(){
+	char nome[100];
+	char cat[100];
+	char idade[3];
+	FILE *ponteiroArquivo;
+	
+	printf("Digite o nome: ");
+	gets(nome);
+	printf("Digite a idade: ");
+	gets(idade);
+	
+	strcpy(cat, nome);
+	strcat(cat, ".txt");
+	ponteiroArquivo = fopen(cat, "w+");
+	fprintf(ponteiroArquivo, "Nome: ");
+	fputs(nome, ponteiroArquivo);
+	fputc('\n', ponteiroArquivo);
+	fprintf(ponteiroArquivo, "Idade: ");
+	fputs(idade, ponteiroArquivo);
+	fclose(ponteiroArquivo);
+}
+
+3-
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(char argc, char *argv[]){
+
+	FILE *ponteiroArquivo;
+	char cat[100];
+	strcpy(cat, argv[1]);
+	strcat(cat, ".txt");
+	ponteiroArquivo = fopen(cat, "w+");
+
+	fprintf(ponteiroArquivo, "Nome: ");
+	fputs(argv[1], ponteiroArquivo);
+	fputc('\n', ponteiroArquivo);
+	fprintf(ponteiroArquivo, "Idade: ");
+	fputs(argv[2], ponteiroArquivo);
+	fclose(ponteiroArquivo);
+
+}
+	
+4 -
+Função main
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "bib_arqs.h"
+int main(){
+	
+	FILE *ponteiroArquivo;
+	int tamanho = 0;	
+	tamanho = tam_arq_text(ponteiroArquivo);
+	printf("O tamanho do arquivo é: %d \n", tamanho);
+}
+
+bib_arqs.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "bib_arqs.h"
+
+int tam_arq_text(FILE *ponteiroArquivo){
+	
+	ponteiroArquivo = fopen("arquivo.txt", "r");
+	int tamanho = 0;
+	char c;
+	while((c=getc(ponteiroArquivo)) != EOF){
+		tamanho++;
+	}
+	return tamanho;
+	fclose(ponteiroArquivo);
+}
+
+bib_arqs.h
+
+extern int tam_arq_text(FILE *ponteiroArquivo);
+
+5- 
+Função main
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "bib_arqs.h"
+void main(){
+	
+	char conteudo[10];	
+	le_arq_texto("arquivo.txt", conteudo);
+	printf("%s ", conteudo);
+}
+
+Biblioteca.c
+	
+#include <stdio.h>
+#include <stdlib.h>
+#include "bib_arqs.h"
+
+void le_arq_texto(char *nomearquivo, char *conteudo){
+	
+	FILE *ponteiroArquivo;
+	ponteiroArquivo = fopen(nomearquivo, "r");
+	int i=0;
+	char d;
+	while((d=getc(ponteiroArquivo)) != EOF){
+		conteudo[i] = d;
+		i++;
+	}
+	fclose(ponteiroArquivo);
+}
+
+Biblioteca.h
+extern void le_arq_texto(char *nomearquivo, char *conteudo);
+
+6-
+Função main
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "bib_arqs.h"
+void main(char argc, char *argv[]){
+	
+	char conteudo[100];	
+	le_arq_texto(argv[1], conteudo);
+	printf("%s ", conteudo);
+}
+
+Biblioteca.c
+	
+#include <stdio.h>
+#include <stdlib.h>
+#include "bib_arqs.h"
+
+void le_arq_texto(char *nomearquivo, char *conteudo){
+	
+	FILE *ponteiroArquivo;
+	ponteiroArquivo = fopen(nomearquivo, "r");
+	int i=0;
+	char d;
+	while((d=getc(ponteiroArquivo)) != EOF){
+		conteudo[i] = d;
+		i++;
+	}
+	fclose(ponteiroArquivo);
+}
+
+Biblioteca.h
+extern void le_arq_texto(char *nomearquivo, char *conteudo);
+
+7-
+Função main
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "bib_arqs.h"
+int main(char argc, char *argv[]){
+	
+	int cont = 0;
+	cont = buscaConta(argv[1]);
+	printf("%s ocorre %d vezes no arquivo %s \n", argv[1], cont, argv[2]);
+}
+	
+Biblioteca.c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "bib_arqs.h"
+
+int buscaConta(char *recebe){
+	
+	FILE *ponteiroArquivo;
+	ponteiroArquivo = fopen("ola.txt", "r");
+	char palavra[100];
+	int cont = 0;
+
+	while(!feof(ponteiroArquivo)){
+		fscanf(ponteiroArquivo, "%s", &palavra);
+		if(strcmp(palavra, recebe)==0){
+		cont++;	
+	}
+	}
+	return cont;
+	fclose(ponteiroArquivo);
+}
+
+Biblioteca.h
+extern void le_arq_texto(char *nomearquivo, char *conteudo);
