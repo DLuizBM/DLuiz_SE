@@ -1,0 +1,316 @@
+﻿Questionário 5
+
+Teórico
+1-
+a) A abertura de um arquivo é realizada utilizando a função fopen. O protótipo da função é o seguinte:
+	FILE * fopen( char *nome_arquivo, char *modo);
+
+   O fechamento de um arquivo é realizado pela função fclose.  O protótipo da função é o seguinte:
+		
+	fclose(FILE *nome_arquivo);
+
+b) As funções para ler arquivos e seus protótipos são:
+	fgetc
+	int fgetc(FILE *arquivo)
+
+	fscanf
+	int fscanf(FILE *arquivo, char *formato, …)
+
+	fgets
+	char *fgets(char *s, int tamanho, FILE * arquivo)
+
+	fread
+	int void fread(const void *ptr, int size, int n, FILE *arquivo)
+
+c)
+	fputc
+	int fputc(int ch, FILE *arquivo)
+
+	fprintf
+	int fprintf(FILE *arquivo, char *formato, …)
+
+	fputs
+	int fputs(char *s, FILE *arquivo)
+
+	fwrite
+	int fwrite(const void *ptr, int size, int n, FILE *arquivo)
+	
+	
+d) As funções são rewind e fseek.
+.
+	void rewind(FILE *arquivo)
+	int fseek(FILE *arquivo, long int offset, int origem)
+
+e) As bibliotecas são:
+	stdio.h
+	stlib.h
+
+2- O POSIX é uma metodologia para fazer a abertura e o fechamento de arquivos voltada para os sistemas UNIX.
+
+3-
+a) A abertura de arquivos é realizada pela funcção open. Seu protótipo é o seguinte:
+
+	int open(const char* path, int oflag, …)
+  
+ O fechamento de arquivos é realizado pela função close. Seu protótipo é o seguinte:
+
+	int close(int fildes)
+
+b) A função para escrever em arquivos é a write. Seu protótipo é o seguinte:
+
+	ssize_t write(int fildes, const void *buf, size_t nbyte);
+
+c) A função para ler arquivos é a função read. Seu protótipo é o seguinte:
+
+	ssize_t read(int fildes, void *buf, size_t nbyte);
+
+d) A função para reposicionar ponteiros é a função  lseek. Seu protótipo é o seguinte:
+
+	off_t lseek(int fd, off_t offset, int whence); 
+
+e) As bibliotecas são as seguinte:
+	
+	#include<stdio.h>
+	#include<unistd.h>
+	#include<fcntl.h>
+	#include<stdlib.h>
+
+
+Prático
+
+1- 
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+int main()
+{
+	int arquivo, i;
+	char string[] = "Ola mundo";
+	
+	arquivo = open("ola.txt", O_WRONLY |  O_CREAT, S_IRWXU);
+	
+
+	for(i=0; string[i]; i++){
+		write(arquivo, &(string[i]), sizeof(string[i]));
+	}
+	close(arquivo);
+}
+
+
+2- 
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+	
+	int arquivo, i;
+	char nome[100];
+	char cat[100];
+	char idade[3];
+	
+	printf("Digite o seu nome: ");
+	scanf("%s", nome);
+	printf("Digite a sua idade: ");
+	scanf("%s", idade);
+		
+	strcpy(cat, nome);
+	strcat(cat, ".txt");
+	arquivo = open(cat, O_WRONLY |  O_CREAT, S_IRWXU);
+	
+	write(arquivo, "Nome: ", 6);
+	for(i=0; nome[i]; i++){
+		write(arquivo, &(nome[i]), sizeof(nome[i]));
+	}
+
+	write(arquivo, "\n", 1);
+	write(arquivo, "Idade: ", 7);
+
+	for(i=0; idade[i]; i++){
+		write(arquivo, &(idade[i]), sizeof(idade[i]));
+	}
+	write(arquivo, "\n", 1);
+	close(arquivo);
+}
+
+
+3-
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(int argc, char *argv[])
+{
+	
+	int arquivo, i;
+	char cat[100];
+	char auxNome[100];
+	char auxidade[3];
+		
+	strcpy(cat, argv[1]);
+	strcat(cat, ".txt");
+	arquivo = open(cat, O_WRONLY |  O_CREAT, S_IRWXU);
+	
+	strcpy(auxNome, argv[1]);
+	strcpy(auxidade, argv[2]);
+	
+	write(arquivo, "Nome: ", 6);
+	for(i=0; auxNome[i]; i++){
+		write(arquivo, &(auxNome[i]), sizeof(auxNome[i]));
+	}
+
+	write(arquivo, "\n", 1);
+	write(arquivo, "Idade: ", 7);
+	for(i=0; auxidade[i]; i++){
+		write(arquivo, &(auxidade[i]), sizeof(auxidade[i]));
+	}
+
+	write(arquivo, "\n", 1);
+	close(arquivo);
+}
+
+4 - 
+Função Main
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include "bib_arqs.h"
+
+
+int main(int argc, char *argv[])
+{
+	int cont = 0;
+	int arquivo;
+	cont = tam_arq_text(arquivo);
+	printf("O tamanho do arquivo é: %d \n", cont);
+}
+
+Biblioteca bib_arqs.c
+
+#include "bib_arqs.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
+int tam_arq_text(int arquivo){
+	
+	char c;
+	int i = 0;
+	arquivo = open("arquivo.txt", O_RDONLY);
+	while((read(arquivo, &c, 1)) != 0){
+		i++;
+	}
+	return i;
+	close(arquivo);
+}
+
+Biblioteca bib_arqs.h
+extern int tam_arq_text(int arquivo);
+
+5-
+Função main
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include "bib_arqs.h"
+
+
+void main()
+{
+
+	char conteudo[100];
+
+	le_arq_texto("arquivo.txt", conteudo);
+	printf("%s", conteudo);
+}
+
+Biblioteca bib_arqs.c
+
+#include "bib_arqs.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
+void le_arq_texto(char *nomeArquivo, char *conteudo){
+
+	int ponteiroArquivo;
+	int i=0;
+	char c;
+
+	ponteiroArquivo = open(nomeArquivo, O_RDONLY);
+	
+	while((read(ponteiroArquivo, &c, 1)) != 0){
+			conteudo[i] = c;
+			i++;
+	}
+	close(ponteiroArquivo);
+}
+
+Biblioteca bib_arqs.h
+extern void le_arq_texto(char *nomeArquivo, char *conteudo);
+
+6 - 
+
+Função main
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include "bib_arqs.h"
+
+
+void main(int argc, char *argv[])
+{
+
+	char conteudo[100];
+
+	le_arq_texto(argv[1], conteudo);
+	printf("%s", conteudo);
+}
+Biblioteca bib_arqs.c
+
+#include "bib_arqs.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+
+void le_arq_texto(char *nomeArquivo, char *conteudo){
+
+	int ponteiroArquivo;
+	int i=0;
+	char c;
+
+	ponteiroArquivo = open(nomeArquivo, O_RDONLY);
+	
+	while((read(ponteiroArquivo, &c, 1)) != 0){
+			conteudo[i] = c;
+			i++;
+	}
+	close(ponteiroArquivo);
+}
+
+Biblioteca bib_arqs.h
+extern void le_arq_texto(char *nomeArquivo, char *conteudo);
